@@ -5,39 +5,57 @@ import os
 class PasswordManager:
     def __init__(self, password, place):
         self.password = password
-        self.key = ""
-        self.__set_key(place)
+        self.place = place
+        self.key = self.__get_key
+        self.__set_key()
+        self.create_file()
 
-    def __set_key(self, place_number):
-        password_list = list(self.password)
-        key_list = list(("h8dbpqTNFfcFa1RcCjKfFxxEzN3VYSDoDhzxSpdGDJo"))
-        places = []
+    def __set_key(self):
+        # password_list = list(self.password)
+        # place_number = self.place
+        # key_list = list(self.key.lower())
+        # places = []
+        #
+        # for i in range(len(password_list)):
+        #     places.append(place_number*(i+1))
+        #
+        # for index_number in places:
+        #     holder = index_number
+        #     if holder >= len(key_list):
+        #         rem = holder % len(key_list)
+        #         while rem in places:
+        #             if rem < len(key_list):
+        #                 rem += 1
+        #         places[places.index(index_number)] = rem
+        #
+        # iteration = 0
+        #
+        # for index_number in places:
+        #     key_list[index_number] = password_list[iteration]
+        #     iteration += 1
+        #
+        # print(key_list)
+        # print()
+        pass
 
-        for i in range(len(password_list)):
-            places.append(place_number*(i+1))
+    @staticmethod
+    def create_file():
+        path1 = "code.txt"
+        path2 = "data.txt"
+        if not os.path.exists(path1):
+            open("code.txt", "x")
+        if not os.path.exists(path2):
+            open("data.txt", "x")
 
-        for index_number in places:
-            holder = index_number
-            if holder >= len(key_list):
-                rem = holder % len(key_list)
-                while rem in places:
-                    if rem < len(key_list):
-                        rem += 1
-                places[places.index(index_number)] = rem
+    @property
+    def __get_key(self):
+        key = open("code.txt", "r")
+        return key.read()
 
-        iteration = 0
+    def generate_key(self):
+        file = open("code.txt", "w")
+        for i in range(20):
+            key = str(Fernet.generate_key())
+            key = key[2: -2]
+            file.write(key+"\n")
 
-        for index_number in places:
-            key_list[index_number] = password_list[iteration]
-            iteration += 1
-
-        print(key_list)
-        print()
-
-    def get_key(self):
-        print(self.key)
-
-    def create_file(self):
-        path = "code.txt"
-        if not os.path.exists(path):
-            open("code.txt","x")
