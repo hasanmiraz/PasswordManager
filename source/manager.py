@@ -6,37 +6,38 @@ class PasswordManager:
     def __init__(self, password, place):
         self.password = password
         self.place = place
-        self.key = self.__get_key
+        # self.key = self.__get_key
         self.__set_key()
         self.create_file()
 
     def __set_key(self):
-        # password_list = list(self.password)
-        # place_number = self.place
-        # key_list = list(self.key.lower())
-        # places = []
-        #
-        # for i in range(len(password_list)):
-        #     places.append(place_number*(i+1))
-        #
-        # for index_number in places:
-        #     holder = index_number
-        #     if holder >= len(key_list):
-        #         rem = holder % len(key_list)
-        #         while rem in places:
-        #             if rem < len(key_list):
-        #                 rem += 1
-        #         places[places.index(index_number)] = rem
-        #
-        # iteration = 0
-        #
-        # for index_number in places:
-        #     key_list[index_number] = password_list[iteration]
-        #     iteration += 1
-        #
-        # print(key_list)
-        # print()
-        pass
+        password_list = list(self.password)
+        place_number = self.place
+        # print(f"the type is : {type(self.key())}")
+        key_list = list(self.__get_key.lower())
+        places = []
+
+        for i in range(len(password_list)):
+            places.append(place_number*(i+1))
+
+        for index_number in places:
+            holder = index_number
+            if holder >= len(key_list):
+                rem = holder % len(key_list)
+                while rem in places:
+                    if rem < len(key_list):
+                        rem += 1
+                places[places.index(index_number)] = rem
+
+        iteration = 0
+
+        for index_number in places:
+            key_list[index_number] = password_list[iteration]
+            iteration += 1
+
+        print(key_list)
+        print()
+        # pass
 
     @staticmethod
     def create_file():
@@ -52,7 +53,7 @@ class PasswordManager:
         key = open("code.txt", "r")
         return key.read()
 
-    def generate_key(self):
+    def __generate_key(self):
         file = open("code.txt", "w")
         for i in range(20):
             key = str(Fernet.generate_key())
